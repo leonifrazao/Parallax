@@ -1,0 +1,1 @@
+from .IWebScraper import IWebScraper
