@@ -2,7 +2,7 @@ import json
 import logging
 from typing import List, Dict, Optional
 from ollama import chat
-from interfaces.INarrativeAnalysis import INarrativeAnalysis
+from parallax.interfaces import INarrativeAnalysis
 
 logger = logging.getLogger(__name__)
 

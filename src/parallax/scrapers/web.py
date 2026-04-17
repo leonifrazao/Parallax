@@ -1,6 +1,6 @@
 
 from .base import BaseScraper
-from interfaces import IWebScraper
+from parallax.interfaces import IWebScraper
 from loguru import logger
 
 class WebScraper(BaseScraper, IWebScraper):

@@ -1,6 +1,6 @@
 from typing import Dict, Optional, List, Union
 from collections import Counter
-from interfaces.IAnalysisMetrics import IAnalysisMetrics
+from parallax.interfaces.IAnalysisMetrics import IAnalysisMetrics
 
 class AnalysisMetrics(IAnalysisMetrics):
     def __init__(self):

@@ -1,15 +1,17 @@
 from dependency_injector.wiring import Provide, inject
-from container import Container
-from interfaces import IWebScraper
+from parallax.container import Container
+from parallax.interfaces import IWebScraper
+
 
 @inject
 def main(scraper: IWebScraper = Provide[Container.web_scraper]):
     titles = scraper.run_all()
     print(titles)
 
+container = Container()
+container.wire(modules=[__name__])
+
 if __name__ == "__main__":
-    container = Container()
-    container.wire(modules=[__name__])
     main()
 
 # from analysis.engine import analyze_narratives

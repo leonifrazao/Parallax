@@ -1,6 +1,6 @@
 from botasaurus.request import request, Request
 from botasaurus.soupify import soupify
-from database.models import Headline
+from parallax.database.models import Headline
 from loguru import logger
 
 class BaseScraper:
