@@ -12,6 +12,7 @@ dependencies = [
     "beautifulsoup4",
     "openai",
     "python-dotenv",
+    "ollama",
 ]
 
 [project.scripts]

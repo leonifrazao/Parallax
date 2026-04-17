@@ -1,12 +1,24 @@
 from dependency_injector.wiring import Provide, inject
 from parallax.container import Container
-from parallax.interfaces import IWebScraper
+from parallax.interfaces import IWebScraper, INarrativeAnalysis
+import asyncio
 
 
 @inject
-def main(scraper: IWebScraper = Provide[Container.web_scraper]):
-    titles = scraper.run_all()
-    print(titles)
+async def async_main(
+    scraper: IWebScraper = Provide[Container.web_scraper], 
+    engine: INarrativeAnalysis = Provide[Container.narrative_analysis]
+):
+    news = scraper.run_all()
+    for batch in news:
+        result = await engine.analyze_narratives(batch)
+        print(result)
+        
+
+
+def main():
+    asyncio.run(async_main())
+
 
 container = Container()
 container.wire(modules=[__name__])

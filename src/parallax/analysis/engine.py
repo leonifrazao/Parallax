@@ -1,20 +1,27 @@
+from typing import Iterable
 import json
 import logging
+import os
 from typing import List, Dict, Optional
-from ollama import chat
+from ollama import AsyncClient
 from parallax.interfaces import INarrativeAnalysis
+from parallax.database.models import Headline
 
 logger = logging.getLogger(__name__)
 
 class NarrativeAnalysis(INarrativeAnalysis):
-    def __init__(self, headlines: List[str], source: str):
-        self.headlines = headlines
-        self.source = source
 
-    def _build_prompt(self) -> str:
+    def __init__(self):
+        self.client = AsyncClient(host=os.getenv("OLLAMA_HOST", "http://localhost:11434"))
+
+    def _build_prompt(self, headlines: List[Headline]) -> str:
+
+        source = headlines[0].source
+        texts = [h.text for h in headlines]
+
         return f"""
         You are a senior intelligence analyst, cynical and an expert in Realistic Geopolitics.
-        Analyze these headlines from '{self.source}': {json.dumps(self.headlines)}
+        Analyze these headlines from '{source}': {json.dumps(texts)}
 
         CRITERIA:
         1. Look for hidden agendas and political beneficiaries.
@@ -37,16 +44,25 @@ class NarrativeAnalysis(INarrativeAnalysis):
         ]
         """
 
-    def analyze_narratives(self) -> Optional[List[Dict]]:
+    async def analyze_narratives(self, headlines: Iterable[Headline]) -> Optional[List[Dict]]:
+
+        logger.info(f"Analyzing narratives from a new batch...")
         try:
-            response = chat(
+
+            iterable_list = list(headlines)
+
+            if not iterable_list:
+                logger.error(f"No headlines provided")
+                return ""
+
+            response = await self.client.chat(
                 model='llama3.1',
-                messages=[{'role': 'user', 'content': self._build_prompt()}],
+                messages=[{'role': 'user', 'content': self._build_prompt(iterable_list)}],
                 format='json',
                 stream=False
             )
             
-            content = response.get('message', {}).get('content', '')
+            content = response.message.content or ""
 
             if content:
                 logger.info(f"Narrative analysis completed successfully")
