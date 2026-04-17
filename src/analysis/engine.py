@@ -47,7 +47,13 @@ class NarrativeAnalysis(INarrativeAnalysis):
             )
             
             content = response.get('message', {}).get('content', '')
-            return json.loads(content) if content else None
+
+            if content:
+                logger.info(f"Narrative analysis completed successfully")
+                return json.loads(content)
+            else:
+                logger.error(f"Narrative analysis failed")
+                return None
             
         except Exception as e:
             logger.error(f"Narrative analysis failed: {e}")
