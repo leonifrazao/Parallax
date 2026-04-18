@@ -4,7 +4,7 @@ from newsapi import NewsApiClient
 from loguru import logger
 
 from parallax.interfaces.enter import IScraper
-from parallax.models import Headline
+from parallax.models.enter import Headline
 from parallax.scrapers.websites.base import BaseScraper
 
 

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from botasaurus.request import Request
 from typing import Iterable, List
-from parallax.models import Headline
+from parallax.models.enter import Headline
 
 class IWebScraper(ABC):
 

@@ -2,7 +2,7 @@ from rich.console import Console
 from rich.table import Table
 from typing import Iterable
 
-from parallax.models import Narrative
+from parallax.models.enter import Narrative
 from parallax.interfaces.out.ICliApp import ICliApp
 
 

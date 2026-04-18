@@ -1,13 +1,44 @@
 services:
-  parallax:
+  scraper-service:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: parallax_app
+    container_name: scraper_service
     working_dir: /app
-    volumes:
-      - ./output:/app/output
     environment:
       NEWSAPI_KEY: ${NEWSAPI_KEY}
       OLLAMA_HOST: ${OLLAMA_HOST}
-    command: [ "uv", "run", "parallax" ]
+    ports:
+      - "8001:8000"
+    command: [ "uv", "run", "uvicorn", "parallax.services.scraper_service.app.main:app", "--host", "0.0.0.0", "--port", "8000" ]
+
+  analysis-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: analysis_service
+    working_dir: /app
+    environment:
+      NEWSAPI_KEY: ${NEWSAPI_KEY}
+      OLLAMA_HOST: ${OLLAMA_HOST}
+    ports:
+      - "8002:8000"
+    command: [ "uv", "run", "uvicorn", "parallax.services.analysis_service.app.main:app", "--host", "0.0.0.0", "--port", "8000" ]
+
+  pipeline-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pipeline_service
+    working_dir: /app
+    environment:
+      SCRAPER_SERVICE_URL: http://scraper-service:8000
+      ANALYSIS_SERVICE_URL: http://analysis-service:8000
+      NEWSAPI_KEY: ${NEWSAPI_KEY}
+      OLLAMA_HOST: ${OLLAMA_HOST}
+    ports:
+      - "8000:8000"
+    command: [ "uv", "run", "uvicorn", "parallax.services.pipeline_service.app.main:app", "--host", "0.0.0.0", "--port", "8000" ]
+    depends_on:
+      - scraper-service
+      - analysis-service

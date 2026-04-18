@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
-from parallax.models import Narrative, Headline
+from parallax.models.enter import Narrative, Headline
 
 
 class IAnalysisUseCase(ABC):

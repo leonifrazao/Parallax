@@ -1,7 +1,9 @@
 from dependency_injector import containers, providers
 from parallax.scrapers.web import WebScraper
 from parallax.analysis.engine import NarrativeAnalysis
-from parallax.services import ExecutorService, AnalysisService, ScraperService
+from parallax.services.pipeline_service.app.services.executor_service import ExecutorService
+from parallax.services.analysis_service.app.services import AnalysisService
+from parallax.services.scraper_service.app.services import ScraperService
 from parallax.ui.app import CliApp
 from parallax.scrapers.websites.newsapi import NewsAPIScraper
 import os

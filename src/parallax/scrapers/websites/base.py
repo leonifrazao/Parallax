@@ -2,7 +2,7 @@ from botasaurus.request import request, Request
 from botasaurus.soupify import soupify
 from loguru import logger
 from typing import Callable, Iterable, Any
-from parallax.models import Headline
+from parallax.models.enter import Headline
 
 
 class BaseScraper:

@@ -1,5 +1,5 @@
 
-from parallax.models import Headline
+from parallax.models.enter import Headline
 from typing import Iterable, List
 from parallax.interfaces.enter import IWebScraper, IScraper
 from loguru import logger

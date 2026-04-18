@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Iterable
-from parallax.models import Narrative
+from parallax.models.enter import Narrative
 
 
 class ICliApp(ABC):

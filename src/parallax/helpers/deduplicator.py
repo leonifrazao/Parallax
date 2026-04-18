@@ -2,7 +2,7 @@ import re
 from typing import List
 from rapidfuzz import fuzz
 
-from parallax.models import Headline
+from parallax.models.enter import Headline
 
 
 class HeadlineDeduplicator:
