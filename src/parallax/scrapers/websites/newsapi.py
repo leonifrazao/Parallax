@@ -47,17 +47,48 @@ class NewsAPIScraper(BaseScraper, IScraper):
                 published_at=published_at,
             )
 
-    def scrape(self, query: str) -> Iterable[Headline]:
-        logger.info(f"Scraping NewsAPI for: {query}")
-        return self.get_headlines(
-            fetcher=lambda: self.client.get_everything(
-                q=query,
-                language="en",
-                sort_by="publishedAt",
-                page_size=20,
-            ),
+    def _normalize(self, text: str) -> str:
+        return (text or "").lower()
+
+    def _text_of(self, h: Headline) -> str:
+        return self._normalize(f"{h.text} {h.description or ''}")
+
+    def _filter_by_query(self, query: str, headlines: list[Headline]) -> list[Headline]:
+        term = self._normalize(query).strip()
+
+        if not term:
+            return headlines
+
+        filtered = [
+            h for h in headlines
+            if term in self._text_of(h)
+        ]
+
+        logger.info("Query filter applied | query={} before={} after={}", query, len(headlines), len(filtered))
+        return filtered
+
+    def scrape(self, query: str, sources: list[str] | None = None) -> Iterable[Headline]:
+        logger.info("Scraping NewsAPI for: {} | sources={}", query, sources)
+
+        params = {
+            "q": query,
+            "language": "en",
+            "sort_by": "relevancy",
+            "page_size": 20,
+        }
+
+        if sources:
+            params["sources"] = ",".join(sources)
+
+        headlines = list(self.get_headlines(
+            fetcher=lambda: self.client.get_everything(**params),
             parser=self._parse,
-        )
+        ))
+
+        filtered = self._filter_by_query(query, headlines)
+
+        logger.info("Filtered headlines {} -> {}", len(headlines), len(filtered))
+        return filtered
 
     def fetch_article_content(self, url: str) -> str:
         return self.get_page_content({

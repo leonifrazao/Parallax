@@ -25,6 +25,7 @@ class PipelineController:
                 query=request.query,
                 limit=request.limit,
                 tojson=request.tojson,
+                sources=request.sources,
             )
             logger.info(
                 "Pipeline request completed | narratives={} ids={}",

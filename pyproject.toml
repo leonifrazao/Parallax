@@ -7,7 +7,6 @@ requires-python = ">=3.12"
 dependencies = [
     "dependency-injector",
     "loguru",
-    "botasaurus",
     "requests",
     "beautifulsoup4",
     "openai",

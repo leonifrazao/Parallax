@@ -5,5 +5,5 @@ from parallax.models.enter import Headline
 
 class IScraper(ABC):
     @abstractmethod
-    def scrape(self, query: str) -> Iterable[Headline]:
+    def scrape(self, query: str, sources: list[str] | None = None) -> Iterable[Headline]:
         pass

@@ -35,6 +35,8 @@ You are a senior intelligence analyst specialized in geopolitical narrative anal
 Analyze the following headlines:
 
 {json.dumps(payload, ensure_ascii=False)}
+
+SUPER IMPORTANT: EMOTIONAL INTENSITY: 0.0 - 1.0
 """
 
     async def analyze_narratives(self, headlines: Iterable[Headline]) -> List[Narrative]:

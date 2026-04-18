@@ -15,11 +15,12 @@ class ExecutorService(IExecutorUseCase):
         self,
         query: str,
         limit: int = 10,
+        sources: list[str] | None = None,
         tojson: bool = False,
     ) -> list[Narrative]:
         pipeline_start = time.time()
 
-        news = await self.scraper.execute(query)
+        news = await self.scraper.execute(query, sources)
         if not news:
             raise ValueError("No news found")
 

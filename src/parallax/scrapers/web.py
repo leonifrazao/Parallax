@@ -9,15 +9,14 @@ class WebScraper(IWebScraper):
         logger.info("WebScraper initialized")
         self.scrappers = scrappers
 
-    def run_all(self, query: str) -> List[Headline]:
+    def run_all(self, query: str, sources: list[str] | None = None) -> List[Headline]:
         """Collects everything and returns a single list for the AI engine."""
         logger.info("Starting scraping...")
         
-        # The Botasaurus already manages threads, so we call it directly
         all_data = []
         
         for scraper in self.scrappers:
-            data = scraper.scrape(query)
+            data = scraper.scrape(query, sources)
             all_data.extend(data)
 
         if all_data:
