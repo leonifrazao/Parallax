@@ -34,6 +34,7 @@ services:
     environment:
       SCRAPER_SERVICE_URL: http://scraper-service:8000
       ANALYSIS_SERVICE_URL: http://analysis-service:8000
+      RENDER_SERVICE_URL: http://render-service:8000
       NEWSAPI_KEY: ${NEWSAPI_KEY}
       OLLAMA_HOST: ${OLLAMA_HOST}
     ports:
@@ -42,3 +43,16 @@ services:
     depends_on:
       - scraper-service
       - analysis-service
+      - render-service
+
+  render-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: render_service
+    working_dir: /app
+    volumes:
+      - ./output/render:/app/output
+    ports:
+      - "8003:8000"
+    command: [ "uv", "run", "uvicorn", "parallax.services.render_service.app.main:app", "--host", "0.0.0.0", "--port", "8000" ]

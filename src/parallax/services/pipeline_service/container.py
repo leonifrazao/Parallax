@@ -3,6 +3,7 @@ from dependency_injector import containers, providers
 
 from parallax.services.pipeline_service.app.clients.scraper_client import ScraperClient
 from parallax.services.pipeline_service.app.clients.analysis_client import AnalysisClient
+from parallax.services.pipeline_service.app.clients.render_client import RenderClient
 from parallax.services.pipeline_service.app.services.executor_service import ExecutorService
 
 
@@ -19,8 +20,14 @@ class PipelineContainer(containers.DeclarativeContainer):
         base_url=os.getenv("ANALYSIS_SERVICE_URL", "http://analysis-service:8000"),
     )
 
+    render_client = providers.Singleton(
+        RenderClient,
+        base_url=os.getenv("RENDER_SERVICE_URL", "http://render-service:8000"),
+    )
+
     executor_service = providers.Factory(
         ExecutorService,
         scraper=scraper_client,
         analyzer=analysis_client,
+        renderer=render_client,
     )

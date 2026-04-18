@@ -6,9 +6,10 @@ import time
 
 
 class ExecutorService(IExecutorUseCase):
-    def __init__(self, scraper, analyzer):
+    def __init__(self, scraper, analyzer, renderer):
         self.scraper = scraper
         self.analyzer = analyzer
+        self.renderer = renderer
 
     async def execute(
         self,
@@ -40,6 +41,12 @@ class ExecutorService(IExecutorUseCase):
 
         if tojson:
             ModelToFile.to_json(result)
+        
+        await self.renderer.execute(
+            title=f"Narrative Analysis - {query}",
+            filename=f"{query.replace(' ', '_')}.html",
+            items=result,
+        )
 
         logger.info("Pipeline total took {}ms", int((time.time() - pipeline_start) * 1000))
         return result
