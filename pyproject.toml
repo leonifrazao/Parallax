@@ -13,6 +13,8 @@ dependencies = [
     "openai",
     "python-dotenv",
     "ollama",
+    "newsapi-python",
+    "rapidfuzz>=3.14.5",
 ]
 
 [project.scripts]

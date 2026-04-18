@@ -1,2 +1,3 @@
-from .IWebScraper import IWebScraper
-from .INarrativeAnalysis import INarrativeAnalysis
+from .enter.IWebScraper import IWebScraper
+from .enter.IAnalysisMetrics import IAnalysisMetrics
+from .enter.INarrativeAnalysis import INarrativeAnalysis

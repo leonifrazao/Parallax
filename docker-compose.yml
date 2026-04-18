@@ -1,0 +1,13 @@
+services:
+  parallax:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: parallax_app
+    working_dir: /app
+    volumes:
+      - ./output:/app/output
+    environment:
+      NEWSAPI_KEY: ${NEWSAPI_KEY}
+      OLLAMA_HOST: ${OLLAMA_HOST}
+    command: [ "uv", "run", "parallax" ]

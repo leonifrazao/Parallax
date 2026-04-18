@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict
+from parallax.models import Narrative, Headline
 
 
 class INarrativeAnalysis(ABC):
     @abstractmethod
-    def analyze_narratives(self, headlines: List[str], source: str) -> Dict:
+    def analyze_narratives(self, headlines: List[Headline]) -> List[Narrative]:
         pass
