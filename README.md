@@ -1,5 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a id="readme-top"></a>
+# Parallax
 
 <!-- PROJECT SHIELDS -->
 [![Contributors][contributors-shield]][contributors-url]
@@ -9,138 +8,89 @@
 [![Unlicense License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/leonifrazao/Parallax">
     <img src="logo.png" alt="Logo" width="500" height="250">
   </a>
-
-  <h3 align="center">Parallax</h3>
-
-  <p align="center">
-    An open-source geopolitical intelligence pipeline that scrapes global news, eliminates duplicate coverage, and leverages local LLMs to dissect narrative bias, emotional framing, and hidden motives — delivering structured intelligence reports analysts can act on.
-    <br />
-    <a href="https://github.com/leonifrazao/Parallax"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/leonifrazao/Parallax">View Demo</a>
-    &middot;
-    <a href="https://github.com/leonifrazao/Parallax/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    &middot;
-    <a href="https://github.com/leonifrazao/Parallax/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
 </div>
+
+---
+
+> *How a story is told matters as much as what happened.*
+
+The same military strike. The same diplomatic summit. The same sanction. Reported by a dozen outlets — each with its own framing, its own agenda, its own version of the truth.
+
+**Parallax** doesn't tell you what happened. It tells you **how every observer chose to frame what happened** — automatically, at scale, with zero cloud dependency.
+
+One `POST /pipeline` call. Scrape → Deduplicate → Analyze → Report.
+
+<br />
+
+<div align="center">
+  <img src="docs/screenshot.jpg" alt="Parallax output — Sudan war narrative analysis" width="100%">
+  <br/>
+  <sub><i>Real output — Sudan war coverage from Al Jazeera English. Three articles, three different detected stances (anti_humanitarian, anti_conflict), emotional intensity ranging from 70% to 90%. Note: even within a single outlet, Parallax detects distinct narrative framings per article — it analyzes content, not just source.</i></sub>
+</div>
+
+<br />
+
+---
 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#why-parallax">Why "Parallax"?</a></li>
-        <li><a href="#key-capabilities">Key Capabilities</a></li>
-        <li><a href="#built-with">Built With</a></li>
-        <li><a href="#architecture-overview">Architecture Overview</a></li>
-        <li><a href="#project-structure">Project Structure</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#the-intelligence-pipeline">The Intelligence Pipeline</a>
-      <ul>
-        <li><a href="#1-collection--scraping">Collection & Scraping</a></li>
-        <li><a href="#2-deduplication">Deduplication</a></li>
-        <li><a href="#3-narrative-analysis">Narrative Analysis</a></li>
-        <li><a href="#4-report-rendering">Report Rendering</a></li>
-        <li><a href="#5-data-export">Data Export</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#usage--api-reference">Usage & API Reference</a>
-      <ul>
-        <li><a href="#running-an-analysis">Running an Analysis</a></li>
-        <li><a href="#request-parameters">Request Parameters</a></li>
-        <li><a href="#intelligence-output">Intelligence Output</a></li>
-        <li><a href="#individual-service-endpoints">Individual Service Endpoints</a></li>
-        <li><a href="#cli-mode">CLI Mode</a></li>
-        <li><a href="#interactive-docs--health-checks">Interactive Docs & Health Checks</a></li>
-      </ul>
-    </li>
+    <li><a href="#why-parallax">Why "Parallax"?</a></li>
+    <li><a href="#key-capabilities">Key Capabilities</a></li>
+    <li><a href="#architecture-overview">Architecture Overview</a></li>
+    <li><a href="#the-intelligence-pipeline">The Intelligence Pipeline</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#usage--api-reference">Usage & API Reference</a></li>
     <li><a href="#data-models">Data Models</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#built-with">Built With</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 ---
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-In any geopolitical crisis, the same event is reported by dozens of outlets — each with its own framing, bias, and agenda. **How** a story is told matters as much as **what** happened. Understanding who frames a conflict as "liberation" vs. "invasion", who amplifies fear vs. neutrality, and which entities are consistently centered in narratives — that's the difference between consuming news and producing intelligence.
-
-**Parallax** is an automated geopolitical narrative intelligence system. It scrapes global news coverage, strips away duplicate reporting, and feeds unique headlines into a local LLM acting as a **senior intelligence analyst specialized in geopolitical narrative analysis**. The output isn't just a summary — it's a structured breakdown of stance, emotional framing, intensity, key actors, narrative motives, and ideological alignment for each piece of coverage.
-
-Everything runs **100% locally**. No cloud APIs for analysis, no data leaving your machine. Ollama runs models like `llama3.1` on your own hardware, ensuring complete operational privacy.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Why "Parallax"?
+## Why "Parallax"?
 
 In optics, **parallax** is the apparent displacement of an object when viewed from two different positions. The object hasn't moved — only the observer's angle changed.
 
-News works the same way. The same geopolitical event — a military strike, a trade sanction, a diplomatic summit — looks completely different depending on which outlet, nation, or ideology is reporting it. Parallax reveals those shifts. It doesn't tell you what happened; it tells you **how every observer chose to frame what happened**.
+News works the same way. Parallax reveals those shifts. It doesn't consume news — it **produces intelligence from news**.
+
+Everything runs **100% locally**. No cloud APIs, no data leaving your machine. Ollama runs LLM inference on your own hardware — built for researchers who treat operational privacy as a hard requirement, not a nice-to-have.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Key Capabilities
+---
+
+## Key Capabilities
 
 | Capability | Description |
 |---|---|
-| 🌐 **Global News Collection** | Scrapes articles from international outlets via NewsAPI. Filter by specific sources (e.g., Al Jazeera, BBC, Reuters) or cast a wide net across all available publishers. |
-| 🧹 **Cross-Outlet Deduplication** | Uses RapidFuzz fuzzy matching (`token_set_ratio`, 84% threshold) to eliminate duplicate coverage of the same event across different media, keeping the most complete version. |
-| 🧠 **Narrative Dissection** | A local LLM (Ollama) acts as a senior geopolitical analyst, extracting **stance** (e.g., `pro_iran`, `anti_nato`, `neutral`), **emotional tone** (`alarmist`, `factual`, `sympathetic`, `triumphalist`, `defeatist`), **emotional intensity**, **key entities**, **narrative summary**, and **underlying motives** from each article. |
-| 📊 **Stance & Bias Mapping** | Stances follow a constrained `neutral / pro_<actor> / anti_<actor>` schema — enabling systematic comparison of how different outlets align on the same conflict. |
-| 🎨 **Intelligence Reports** | Auto-generates dark-themed HTML reports with cards per article: stance badges, intensity bars, entity tags, motive pills, and source links. Open them in any browser. |
-| 📁 **Multi-Format Export** | Export analysis results to JSON, CSV, or XML for further processing in your own tools or databases. |
-| 🏗️ **Microservice Architecture** | Four independent FastAPI services (Pipeline, Scraper, Analysis, Render) orchestrated via Docker Compose. Each can be scaled, replaced, or tested independently. |
-| 🔒 **Fully Local & Private** | No data leaves your machine. Ollama runs LLM inference locally. Perfect for sensitive geopolitical research. |
-| 💻 **CLI Mode** | Standalone terminal application with formatted Rich tables for quick analysis without a browser. |
+| 🌐 **Global News Collection** | Queries international outlets via NewsAPI. Target specific sources (Al Jazeera, BBC, Reuters) or cast wide. Supports boolean operators (`AND`, `OR`), language filters, and batch sizes up to 20. |
+| 🧹 **Cross-Outlet Deduplication** | RapidFuzz `token_set_ratio` at 84% threshold eliminates wire stories republished across dozens of outlets. The most complete version survives. Each remaining article represents a genuinely different perspective. |
+| 🧠 **Narrative Dissection** | Local LLM (Ollama) acts as a senior geopolitical analyst. Extracts **stance**, **emotional tone**, **intensity**, **key entities**, **narrative summary**, and **underlying motives** per article — via structured Pydantic output, no hallucinated formats. |
+| 📊 **Stance & Bias Mapping** | Constrained `neutral / pro_<actor> / anti_<actor>` schema with regex validation. Enables systematic, comparable bias mapping across outlets and over time. |
+| 🎨 **Intelligence Reports** | Auto-generated dark-themed HTML reports: stance badges, intensity bars, entity tags, motive pills, source links. Open in any browser, no dependencies. |
+| 📁 **Multi-Format Export** | JSON, CSV, XML — for dashboards, NLP pipelines, OSINT tools, or spreadsheet analysis. Timestamped, UTF-8, ready to pipe downstream. |
+| 🏗️ **Microservice Architecture** | Four independent FastAPI services (Pipeline, Scraper, Analysis, Render) via Docker Compose. Each independently scalable, replaceable, and testable. |
+| 🔒 **Fully Local & Private** | Zero egress. Ollama runs on your hardware. Built for sensitive geopolitical research. |
+| 💻 **CLI Mode** | Rich terminal tables for quick analysis without a browser or Docker. |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Built With
+---
 
-* [![Python][Python.org]][Python-url] Python >= 3.12
-* [![FastAPI][FastAPI.tiangolo]][FastAPI-url] FastAPI (async REST framework)
-* [![Docker][Docker.com]][Docker-url] Docker & Docker Compose
-* [![Ollama][Ollama.com]][Ollama-url] Ollama (local LLM inference)
-* **UV** — Ultra-fast Python package installer and resolver ([astral-sh/uv](https://github.com/astral-sh/uv))
-* **RapidFuzz** — High-performance fuzzy string matching for deduplication
-* **Pydantic v2** — Data validation and LLM output schema enforcement
-* **dependency-injector** — IoC container for clean architecture
-* **HTTPX** — Async HTTP client for inter-service communication
-* **Loguru** — Structured logging across all services
-* **Rich** — Beautiful terminal output for CLI mode
-* **BeautifulSoup4** — HTML parsing for article content extraction
-* **Dacite** — Dataclass deserialization utilities
+## Architecture Overview
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Architecture Overview
-
-Parallax divides its intelligence pipeline across **four orchestrated microservices** deployed via Docker Compose. They communicate internally over a Docker network via async REST calls while exposing endpoints externally for direct testing.
+Four orchestrated microservices. One entry point. Full intelligence cycle.
 
 ```mermaid
 graph TD
@@ -152,114 +102,82 @@ graph TD
     Pipeline -->|"POST /render/save"| Render["Render Service :8003"]
 
     Scraper --> NewsAPI["NewsAPI"]
-    Analysis --> Ollama["Ollama - llama3.1"]
+    Analysis --> Ollama["Ollama — llama3.1"]
     Render --> HTML["./output/render/*.html"]
-
 ```
 
-**Service Breakdown:**
-
-| Service | Container | External Port | Role |
+| Service | Container | Port | Role |
 |---|---|---|---|
-| **Pipeline** | `pipeline_service` | `8000` | Orchestrates the full intelligence cycle. Validates queries, coordinates all services, deduplicates headlines, triggers exports. Single entry point for clients. |
-| **Scraper** | `scraper_service` | `8001` | Interfaces with news providers (NewsAPI). Fetches articles, parses them into `Headline` models, filters by query relevance and source outlet. |
-| **Analysis** | `analysis_service` | `8002` | The intelligence core. Builds geopolitical analysis prompts, dispatches to Ollama, parses structured LLM output into `Narrative` models with stance, tone, entities, and motives. |
-| **Render** | `render_service` | `8003` | Transforms `Narrative` data into dark-themed HTML intelligence reports. Writes timestamped `.html` files to a mounted Docker volume (`./output/render`). |
+| **Pipeline** | `pipeline_service` | `8000` | Orchestrates the full cycle. Single entry point. |
+| **Scraper** | `scraper_service` | `8001` | NewsAPI integration. Parses into `Headline` models. |
+| **Analysis** | `analysis_service` | `8002` | The intelligence core. Prompt → Ollama → structured `Narrative`. |
+| **Render** | `render_service` | `8003` | `Narrative` data → dark-themed HTML reports. |
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Project Structure
+<details>
+<summary>Full project structure</summary>
 
 ```
 Parallax/
-├── docker-compose.yml                  # Orchestrates all 4 microservices
-├── Dockerfile                          # Shared build (Python 3.12-slim + UV)
-├── pyproject.toml                      # Project metadata & dependencies
-├── uv.lock                            # Deterministic dependency lock
+├── docker-compose.yml
+├── Dockerfile
+├── pyproject.toml
+├── uv.lock
 ├── .env                                # NEWSAPI_KEY, OLLAMA_HOST
 │
 ├── src/parallax/
-│   ├── main.py                         # CLI entry point (standalone mode)
+│   ├── main.py                         # CLI entry point
 │   ├── container.py                    # Root DI container (CLI mode)
 │   │
-│   ├── models/
-│   │   └── enter/
-│   │       ├── headline.py             # Headline: scraped article data
-│   │       ├── narrative.py            # Narrative: analyzed intelligence output
-│   │       ├── narrativeLLM.py         # LLM schema (constrained stance, tone literals)
-│   │       └── web/
-│   │           ├── pipelinerequest.py   # Pipeline API request body
-│   │           ├── scraperequest.py     # Scraper API request body
-│   │           └── renderrequest.py     # Render API request body
+│   ├── models/enter/
+│   │   ├── headline.py
+│   │   ├── narrative.py
+│   │   ├── narrativeLLM.py             # LLM schema (constrained stance, tone literals)
+│   │   └── web/
+│   │       ├── pipelinerequest.py
+│   │       ├── scraperequest.py
+│   │       └── renderrequest.py
 │   │
 │   ├── interfaces/                     # Abstract contracts (Clean Architecture)
 │   │   ├── enter/
-│   │   │   ├── IScraper.py             # Scraper provider interface
-│   │   │   ├── IWebScraper.py          # Scraper orchestrator interface
-│   │   │   ├── INarrativeAnalysis.py   # Analysis engine interface
-│   │   │   ├── IAnalysisMetrics.py     # Aggregate metrics interface
+│   │   │   ├── IScraper.py
+│   │   │   ├── IWebScraper.py
+│   │   │   ├── INarrativeAnalysis.py
+│   │   │   ├── IAnalysisMetrics.py
 │   │   │   └── usecases/
-│   │   │       ├── IExecutorUseCase.py # Pipeline executor contract
-│   │   │       ├── IScraperUseCase.py  # Scraper use case contract
-│   │   │       ├── IAnalysisUseCase.py # Analysis use case contract
-│   │   │       └── IRenderUseCase.py   # Render use case contract
+│   │   │       ├── IExecutorUseCase.py
+│   │   │       ├── IScraperUseCase.py
+│   │   │       ├── IAnalysisUseCase.py
+│   │   │       └── IRenderUseCase.py
 │   │   └── out/
-│   │       └── ICliApp.py              # CLI output interface
+│   │       └── ICliApp.py
 │   │
 │   ├── scrapers/
 │   │   ├── web.py                      # WebScraper: aggregates all providers
 │   │   ├── telegram.py                 # Telegram scraper (planned)
 │   │   └── websites/
-│   │       ├── base.py                 # BaseScraper: fetcher/parser pattern
-│   │       └── newsapi.py              # NewsAPI: get_everything + query filter
+│   │       ├── base.py
+│   │       └── newsapi.py
 │   │
 │   ├── analysis/
-│   │   ├── engine.py                   # NarrativeAnalysis: prompt → Ollama → Narrative
-│   │   └── metrics.py                  # AnalysisMetrics: stance/tone distributions
+│   │   ├── engine.py                   # prompt → Ollama → Narrative
+│   │   └── metrics.py                  # stance/tone distributions
 │   │
 │   ├── helpers/
-│   │   ├── deduplicator.py             # HeadlineDeduplicator (RapidFuzz)
-│   │   └── modeltofile.py             # ModelToFile: export JSON / CSV / XML
+│   │   ├── deduplicator.py             # RapidFuzz deduplication
+│   │   └── modeltofile.py             # JSON / CSV / XML export
 │   │
 │   ├── ui/
-│   │   ├── app.py                      # CliApp: Rich table display
-│   │   └── components.py              # UI components (planned)
+│   │   └── app.py                      # Rich CLI table
 │   │
-│   ├── database/                       # Persistence layer (planned)
-│   │   ├── entities.py
-│   │   └── repository.py
-│   │
-│   └── services/                       # Microservice layer
+│   └── services/
 │       ├── pipeline_service/
-│       │   ├── container.py            # DI: wires clients → executor
-│       │   └── app/
-│       │       ├── main.py             # FastAPI app
-│       │       ├── controllers/
-│       │       │   └── pipeline_controller.py
-│       │       ├── clients/
-│       │       │   ├── scraper_client.py     # HTTP → Scraper Service
-│       │       │   ├── analysis_client.py    # HTTP → Analysis Service
-│       │       │   └── render_client.py      # HTTP → Render Service
-│       │       └── services/
-│       │           └── executor_service.py   # Full pipeline orchestration
-│       │
 │       ├── scraper_service/
-│       │   ├── container.py
-│       │   └── app/ (main, controllers, services)
-│       │
 │       ├── analysis_service/
-│       │   ├── container.py
-│       │   └── app/ (main, controllers, services)
-│       │
 │       └── render_service/
-│           ├── container.py
-│           └── app/
-│               └── services/
-│                   └── render_service.py   # HTML generation engine
 │
-└── output/
-    └── render/                         # Generated HTML intelligence reports
+└── output/render/                      # Generated HTML reports
 ```
+</details>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -267,134 +185,104 @@ Parallax/
 
 ## The Intelligence Pipeline
 
-A single `POST /pipeline` call triggers the entire intelligence cycle. Here's what Parallax does behind the scenes:
+A single `POST /pipeline` triggers the full cycle.
 
 ### 1. Collection & Scraping
 
-The **Scraper Service** acts as your collection unit, interfacing with news providers to gather raw coverage:
-
-- Queries [NewsAPI](https://newsapi.org/) via `get_everything()` — supports boolean operators (`AND`, `OR`), language filtering (defaults to English), relevancy sorting, and batch sizes up to 20.
-- **Source targeting**: Focus your analysis on specific outlets. For geopolitical work, this means you can compare how `al-jazeera-english` vs. `bbc-news` vs. `reuters` frame the same event.
-- Parses each raw article into a `Headline` domain model: title, source, URL, description, author, publication date, and a UUID for tracking through the pipeline.
-- Applies a secondary local query filter to ensure all returned articles genuinely contain the search term in their headline or description.
-- Discards noise: removed articles, missing titles/URLs, empty descriptions.
-
-The scraper architecture is **extensible** — `WebScraper` aggregates results from any number of `IScraper` implementations. A `telegram.py` module is stubbed for future Telegram channel collection.
+- Queries NewsAPI via `get_everything()` — boolean operators, language filter, relevancy sort, batches up to 20.
+- Source targeting: compare `al-jazeera-english` vs `bbc-news` vs `reuters` on the same event.
+- Parses into `Headline` models (title, source, URL, description, author, date, UUID).
+- Secondary local filter ensures articles genuinely contain the search term.
+- Discards noise: missing titles, empty descriptions, removed articles.
+- Extensible: `WebScraper` aggregates any `IScraper` implementation. `telegram.py` stubbed for future Telegram collection.
 
 ### 2. Deduplication
 
-In geopolitical events, the same wire story (AP, Reuters) gets republished by dozens of outlets with minimal changes. Analyzing the same event 15 times would waste LLM compute and pollute your intelligence product.
+The same wire story (AP, Reuters) gets republished by dozens of outlets. Analyzing it 15 times wastes LLM compute and pollutes your intelligence product.
 
-The `HeadlineDeduplicator` solves this:
-
-- Combines `headline + description` into a single comparison string per article.
-- Normalizes text: lowercase, strip special characters, collapse whitespace, unify quote characters.
-- Compares each candidate against accepted articles using `fuzz.token_set_ratio` — a fuzzy matching algorithm that's resilient to word reordering (critical for news headlines).
-- **Threshold: 84%** similarity → flagged as duplicate. The version with more complete text (longer `text + description`) survives.
-- Output: a pruned, unique set of perspectives — each representing a genuinely different take on the event.
+`HeadlineDeduplicator`:
+- Combines `headline + description` into a single comparison string.
+- Normalizes: lowercase, strip special chars, collapse whitespace, unify quotes.
+- `fuzz.token_set_ratio` — resilient to word reordering (critical for news headlines).
+- **84% threshold** → flagged as duplicate. Longer version survives.
+- Output: a pruned set where each article represents a genuinely distinct perspective.
 
 ### 3. Narrative Analysis
 
-This is the core of Parallax. The **Analysis Service** operates the LLM as a geopolitical intelligence analyst.
+The **Analysis Service** operates the LLM as a geopolitical intelligence analyst.
 
-The system prompt positions Ollama as:
+System prompt: *"You are a senior intelligence analyst specialized in geopolitical narrative analysis."*
 
-> *"You are a senior intelligence analyst specialized in geopolitical narrative analysis."*
+For each batch of deduplicated headlines:
+1. Builds structured JSON payload (IDs, titles, descriptions, sources).
+2. Dispatches to Ollama with `temperature: 0` — deterministic, reproducible.
+3. **Structured output** via Pydantic (`NarrativeListResponse`) — hallucinated formats are impossible.
 
-For each batch of deduplicated headlines, the engine:
+**What the analyst extracts:**
 
-1. Builds a structured JSON payload with headline IDs, titles, descriptions, and sources.
-2. Sends it to Ollama (default model: `llama3.1`) with `temperature: 0` for deterministic, reproducible analysis.
-3. Uses **structured output** — the LLM is forced to return JSON conforming to a Pydantic schema (`NarrativeListResponse`), eliminating hallucinated formats.
-
-**What the analyst extracts per headline:**
-
-| Field | Type | Geopolitical Purpose |
+| Field | Type | Purpose |
 |---|---|---|
-| `stance` | `neutral`, `pro_<actor>`, `anti_<actor>` | Maps ideological alignment. Pattern: `pro_iran`, `anti_nato`, `pro_ukraine`, etc. Regex-validated to enforce consistency. |
-| `emotional_tone` | `alarmist` · `factual` · `sympathetic` · `triumphalist` · `defeatist` | Classifies the emotional framing strategy. Is coverage designed to provoke fear? Generate sympathy? Project strength? |
-| `emotional_intensity` | `0.0 – 10.0` | Quantifies how charged the coverage is. Factual wire reports cluster near 1–3; sensationalist coverage spikes to 7–10. |
-| `key_entities` | `list[str]` | People, organizations, nations, and concepts that the narrative centers around. Reveals who each outlet considers the primary actor. |
-| `narrative_summary` | `str` | Concise distillation of the story being told — not the event, but the *framing* of the event. |
-| `motives` | `list[str]` | Underlying agendas detected: "Economic Pressure", "Territorial Legitimization", "Humanitarian Framing", etc. |
+| `stance` | `neutral / pro_<actor> / anti_<actor>` | Ideological alignment. Regex-validated. |
+| `emotional_tone` | `alarmist · factual · sympathetic · triumphalist · defeatist` | Emotional framing strategy. |
+| `emotional_intensity` | `0.0 – 10.0` | Charge level. Wire reports: 1–3. Sensationalist: 7–10. |
+| `key_entities` | `list[str]` | Who each outlet centers in the narrative. |
+| `narrative_summary` | `str` | The framing of the event — not the event itself. |
+| `motives` | `list[str]` | Detected agendas: "Humanitarian Framing", "Territorial Legitimization", etc. |
 
 ### 4. Report Rendering
 
-The **Render Service** transforms raw intelligence into visual HTML reports:
-
-- **Dark intelligence theme** — `#020617` background, Inter typeface, designed for extended reading.
-- Each narrative is a **card** containing:
-  - **Headline & Source** — What was said and by whom.
-  - **Stance Badge** — Pill-shaped label (e.g., `pro_russia`) for instant visual scanning.
-  - **Narrative Summary** — The intelligence analyst's distillation.
-  - **Emotional Tone & Intensity** — Text label + visual progress bar showing how charged the coverage is.
-  - **Key Entities** — Tag pills showing which actors the outlet centers.
-  - **Motives** — Tag pills showing detected underlying agendas.
-  - **Source Link** — Direct link to the original article for verification.
-- Reports are saved as timestamped `.html` files to `./output/render/` (mounted Docker volume), viewable in any browser.
+Dark intelligence theme (`#020617`, Inter typeface). Per-article cards: stance badge, narrative summary, tone + intensity bar, entity tags, motive pills, source link. Saved as timestamped `.html` to `./output/render/`.
 
 ### 5. Data Export
 
-The `ModelToFile` utility enables downstream processing:
-
-- **JSON** — Pretty-printed, UTF-8 encoded arrays. Ideal for feeding into visualization dashboards or further NLP processing.
-- **CSV** — Flat tables with auto-detected headers. Nested fields (entities, motives) are serialized as JSON strings. Ready for spreadsheet analysis.
-- **XML** — Structured `<items>/<item>` trees. Useful for OSINT tool integration.
-
-All exports are timestamped and saved to the `output/` directory.
+`ModelToFile` → JSON (pretty-printed), CSV (nested fields as JSON strings), XML (`<items>/<item>`). All timestamped to `output/`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 ### Prerequisites
 
-1. **Docker & Docker Compose** — Install [Docker Desktop](https://www.docker.com/products/docker-desktop).
-2. **Ollama** — Install [Ollama](https://ollama.com/) on your host machine and pull a model:
+1. **Docker & Docker Compose** — [Docker Desktop](https://www.docker.com/products/docker-desktop)
+2. **Ollama** — [ollama.com](https://ollama.com/), then:
    ```sh
    ollama pull llama3.1
    ```
-   > For deeper geopolitical analysis, larger models (`llama3.1:70b`, `mixtral`) may produce richer results at the cost of speed.
-3. **NewsAPI Key** — Get a free API key at [newsapi.org](https://newsapi.org/).
+   > Larger models (`llama3.1:70b`, `mixtral`) produce richer analysis at the cost of speed.
+3. **NewsAPI Key** — free at [newsapi.org](https://newsapi.org/)
 
 ### Installation
 
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/leonifrazao/Parallax.git
-   cd Parallax
-   ```
+```sh
+git clone https://github.com/leonifrazao/Parallax.git
+cd Parallax
+```
 
-2. **Configure environment variables**
+Create `.env`:
+```env
+NEWSAPI_KEY=your_newsapi_key_here
+OLLAMA_HOST=http://host.docker.internal:11434
+```
+> On Linux, you may need `--add-host` or the host's IP instead of `host.docker.internal`.
 
-   Create a `.env` file in the project root:
-   ```env
-   NEWSAPI_KEY=your_newsapi_key_here
-   OLLAMA_HOST=http://host.docker.internal:11434
-   ```
-   > `host.docker.internal` allows containers to reach your host's Ollama instance. On Linux, you may need to use `--add-host` or the host's IP.
+```sh
+docker compose up --build
+```
 
-3. **Build and start all services**
-   ```sh
-   docker compose up --build
-   ```
+| Container | URL |
+|---|---|
+| Pipeline (gateway) | `http://localhost:8000` |
+| Scraper | `http://localhost:8001` |
+| Analysis | `http://localhost:8002` |
+| Render | `http://localhost:8003` |
 
-   Four containers will spin up:
-   | Container | URL |
-   |---|---|
-   | Pipeline (gateway) | `http://localhost:8000` |
-   | Scraper | `http://localhost:8001` |
-   | Analysis | `http://localhost:8002` |
-   | Render | `http://localhost:8003` |
-
-4. **Verify** all services are healthy:
-   ```sh
-   curl http://localhost:8000/health
-   # {"status":"ok","service":"pipeline-service","version":"0.1.0"}
-   ```
+Verify:
+```sh
+curl http://localhost:8000/health
+# {"status":"ok","service":"pipeline-service","version":"0.1.0"}
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -404,11 +292,8 @@ All exports are timestamped and saved to the `output/` directory.
 
 ### Running an Analysis
 
-Send a single `POST` to trigger the full intelligence cycle — collection, deduplication, narrative analysis, rendering, and export:
-
-**Example: Analyze coverage of Iran's nuclear program across major outlets:**
-
 ```sh
+# Compare Iran nuclear coverage across ideologically opposed outlets
 curl -X POST http://localhost:8000/pipeline \
   -H 'Content-Type: application/json' \
   -d '{
@@ -417,11 +302,8 @@ curl -X POST http://localhost:8000/pipeline \
     "sources": ["al-jazeera-english", "bbc-news", "reuters", "the-washington-post"],
     "tojson": true
   }'
-```
 
-**Example: Compare NATO coverage between Western and non-Western outlets:**
-
-```sh
+# Detect NATO framing divergence between Western and non-Western press
 curl -X POST http://localhost:8000/pipeline \
   -H 'Content-Type: application/json' \
   -d '{
@@ -436,14 +318,12 @@ curl -X POST http://localhost:8000/pipeline \
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `query` | `string` | *required* | Search query. Supports boolean operators: `"Iran AND sanctions"`, `"NATO OR OTAN"`. |
-| `limit` | `integer` | `10` | Maximum headlines to analyze (applied after deduplication). Higher = more comprehensive but slower LLM processing. |
-| `sources` | `string[]` | `[]` | Filter by NewsAPI source IDs. Empty = all sources. Use this to compare framing across specific outlets. |
-| `tojson` | `boolean` | `false` | Also export results as `.json` to the `output/` directory. |
+| `query` | `string` | *required* | Supports boolean operators: `"Iran AND sanctions"`, `"NATO OR OTAN"` |
+| `limit` | `integer` | `10` | Max headlines after deduplication |
+| `sources` | `string[]` | `[]` | NewsAPI source IDs. Empty = all sources |
+| `tojson` | `boolean` | `false` | Export `.json` to `output/` |
 
 ### Intelligence Output
-
-The API returns a JSON array of `Narrative` objects — one per analyzed headline:
 
 ```json
 [
@@ -454,7 +334,7 @@ The API returns a JSON array of `Narrative` objects — one per analyzed headlin
     "emotional_tone": "alarmist",
     "emotional_intensity": 7.2,
     "key_entities": ["Iran", "IAEA", "United States", "Uranium Enrichment"],
-    "narrative_summary": "Western-aligned framing that positions Iran as the aggressor breaking international norms, while omitting context about sanctions relief failures.",
+    "narrative_summary": "Western-aligned framing positioning Iran as aggressor, omitting context about sanctions relief failures.",
     "motives": ["Security Threat Amplification", "Diplomatic Pressure", "Nuclear Proliferation Fear"],
     "url": "https://www.bbc.com/news/...",
     "source": "BBC News"
@@ -466,7 +346,7 @@ The API returns a JSON array of `Narrative` objects — one per analyzed headlin
     "emotional_tone": "sympathetic",
     "emotional_intensity": 4.1,
     "key_entities": ["Iran", "NPT", "Sovereignty", "Western Powers"],
-    "narrative_summary": "Frames Iran's nuclear program as a legitimate exercise of sovereignty under the NPT, emphasizing Western hypocrisy in selective enforcement.",
+    "narrative_summary": "Frames Iran's program as legitimate under the NPT, emphasizing Western hypocrisy in selective enforcement.",
     "motives": ["Sovereignty Defense", "Anti-Western Framing", "Historical Grievance"],
     "url": "https://www.aljazeera.com/news/...",
     "source": "Al Jazeera English"
@@ -474,40 +354,32 @@ The API returns a JSON array of `Narrative` objects — one per analyzed headlin
 ]
 ```
 
-> **Note:** Alongside the API response, an HTML report is also generated at `./output/render/Iran_nuclear_deal_<timestamp>.html` — ready to open in a browser.
+> An HTML report is also generated at `./output/render/Iran_nuclear_deal_<timestamp>.html`.
 
 ### Individual Service Endpoints
 
-Each microservice can be called directly for custom workflows:
-
-| Service | Endpoint | Method | Body | Purpose |
-|---|---|---|---|---|
-| Scraper | `localhost:8001/scrape` | POST | `{ "query": "...", "sources": [] }` | Raw article collection only |
-| Analysis | `localhost:8002/analyze` | POST | Array of `Headline` objects | Narrative analysis only |
-| Render | `localhost:8003/render/save` | POST | `{ "title": "...", "filename": "...", "items": [...] }` | HTML generation only |
+| Service | Endpoint | Method | Purpose |
+|---|---|---|---|
+| Scraper | `localhost:8001/scrape` | POST | Raw collection only |
+| Analysis | `localhost:8002/analyze` | POST | Narrative analysis only |
+| Render | `localhost:8003/render/save` | POST | HTML generation only |
 
 ### CLI Mode
-
-Parallax includes a standalone CLI for local use without Docker:
 
 ```sh
 uv run parallax
 ```
 
-Displays a formatted **Rich** table in the terminal with columns: ID, Headline, Stance, Tone, Intensity, Source, URL.
+Rich terminal table: ID, Headline, Stance, Tone, Intensity, Source, URL.
 
-> Requires `NEWSAPI_KEY` and `OLLAMA_HOST` set via `.env` or shell variables.
+### Swagger UI & Health Checks
 
-### Interactive Docs & Health Checks
-
-FastAPI auto-generates Swagger UI for each service:
-
-| Service | Swagger UI | Health Check |
+| Service | Swagger | Health |
 |---|---|---|
-| Pipeline | [`localhost:8000/docs`](http://localhost:8000/docs) | `GET /health` |
-| Scraper | [`localhost:8001/docs`](http://localhost:8001/docs) | `GET /health` |
-| Analysis | [`localhost:8002/docs`](http://localhost:8002/docs) | `GET /health` |
-| Render | [`localhost:8003/docs`](http://localhost:8003/docs) | `GET /health` |
+| Pipeline | `localhost:8000/docs` | `GET /health` |
+| Scraper | `localhost:8001/docs` | `GET /health` |
+| Analysis | `localhost:8002/docs` | `GET /health` |
+| Render | `localhost:8003/docs` | `GET /health` |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -515,125 +387,132 @@ FastAPI auto-generates Swagger UI for each service:
 
 ## Data Models
 
-### Headline (Collection Input)
+### Headline
 
 ```python
 class Headline(BaseModel):
-    text: str                          # Article title
-    source: str                        # Publisher name (e.g., "BBC News")
-    url: str | None                    # Article URL
-    description: str | None            # Subtitle / lead paragraph
-    author: str | None                 # Author name
-    published_at: datetime | None      # Publication timestamp
-    scraped_at: datetime               # When Parallax collected it (auto)
-    id: str                            # UUID for pipeline tracking (auto)
+    text: str
+    source: str
+    url: str | None
+    description: str | None
+    author: str | None
+    published_at: datetime | None
+    scraped_at: datetime              # auto
+    id: str                           # UUID, auto
 ```
 
-### Narrative (Intelligence Output)
+### Narrative
 
 ```python
 class Narrative(BaseModel):
-    id: str                            # Matches original Headline UUID
-    headline: str                      # LLM-reformulated headline
-    stance: str                        # neutral / pro_<actor> / anti_<actor>
-    emotional_tone: str                # alarmist / factual / sympathetic / triumphalist / defeatist
-    emotional_intensity: float         # 0.0 – 10.0
-    key_entities: list[str]            # People, orgs, nations, concepts
-    narrative_summary: str             # Analyst's distillation of the framing
-    motives: list[str]                 # Detected underlying agendas
-    url: str                           # Original source URL
-    source: str                        # Publisher name
+    id: str                           # matches Headline UUID
+    headline: str                     # LLM-reformulated
+    stance: str                       # neutral / pro_<actor> / anti_<actor>
+    emotional_tone: str               # alarmist / factual / sympathetic / triumphalist / defeatist
+    emotional_intensity: float        # 0.0 – 10.0
+    key_entities: list[str]
+    narrative_summary: str
+    motives: list[str]
+    url: str
+    source: str
 ```
 
-### NarrativeLLM (LLM Schema Constraints)
+### Schema Constraints (NarrativeLLM)
 
-The schema sent to Ollama enforces strict typing:
-- `stance` is regex-validated: `^(neutral|pro_[a-z0-9_]+|anti_[a-z0-9_]+)$`
-- `emotional_tone` is a `Literal` enum (only 5 allowed values)
-- `emotional_intensity` is bounded: `0.0 ≤ x ≤ 10.0`
+- `stance` — regex: `^(neutral|pro_[a-z0-9_]+|anti_[a-z0-9_]+)$`
+- `emotional_tone` — `Literal` enum, 5 values only
+- `emotional_intensity` — bounded `0.0 ≤ x ≤ 10.0`
 
-This prevents hallucinated or inconsistent output from the LLM.
+Structured output via Pydantic prevents hallucinated or inconsistent LLM responses.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
 
-<!-- ROADMAP -->
 ## Roadmap
 
-- [x] NewsAPI collection integration
-- [x] RapidFuzz cross-outlet deduplication
-- [x] Ollama narrative analysis with structured output
-- [x] Geopolitical stance & bias extraction (`pro_*/anti_*` schema)
+**Done:**
+
+- [x] NewsAPI collection + source targeting
+- [x] RapidFuzz cross-outlet deduplication (84% threshold)
+- [x] Ollama narrative analysis with structured Pydantic output
+- [x] Stance & bias extraction (`pro_*/anti_*` with regex validation)
 - [x] Emotional tone classification (5-class taxonomy)
-- [x] Automated HTML intelligence report generation
-- [x] Source-based outlet filtering
+- [x] HTML intelligence report generation
 - [x] Multi-format export (JSON, CSV, XML)
-- [x] CLI mode with Rich terminal tables
-- [x] Dependency Injection architecture
+- [x] CLI mode (Rich tables)
+- [x] Dependency Injection architecture (IoC containers)
 - [x] Docker Compose microservice orchestration
 - [x] Health check endpoints
-- [ ] Additional collection sources (Telegram channels, Reddit, Twitter/X)
-- [ ] Interactive dashboard (Next.js / React) with stance comparison charts
-- [ ] Multi-language support (collection & analysis in PT-BR, AR, RU)
-- [ ] Database persistence for historical narrative tracking
-- [ ] Aggregate metrics dashboard (stance distributions, entity frequency, tone trends over time)
-- [ ] Comparative analysis mode (same event, two outlet groups, side-by-side)
 
-See the [open issues](https://github.com/leonifrazao/Parallax/issues) for a full list of proposed features and known issues.
+**Next (prioritized by value, not wish list):**
+
+- [ ] **PostgreSQL persistence layer** — without it, every run is ephemeral. Historical narrative tracking (the most strategically valuable use case) is impossible without persistence. This is the highest-leverage next step.
+- [ ] **Aggregate metrics dashboard** — once data persists: stance distributions over time, entity frequency shifts, tone trends across crises. This turns Parallax from a one-shot tool into an ongoing intelligence asset.
+- [ ] **Comparative analysis mode** — same event, two outlet groups, side-by-side diff. The core use case for researchers.
+- [ ] **Additional collection sources** — Telegram channels, Reddit, Twitter/X. Extends coverage beyond NewsAPI's Western-press bias.
+- [ ] **Multi-language analysis** — PT-BR, AR, RU. Needed to properly analyze non-English narratives without translation loss.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTRIBUTING -->
+---
+
+## Built With
+
+* [![Python][Python.org]][Python-url] Python >= 3.12
+* [![FastAPI][FastAPI.tiangolo]][FastAPI-url] FastAPI
+* [![Docker][Docker.com]][Docker-url] Docker & Docker Compose
+* [![Ollama][Ollama.com]][Ollama-url] Ollama (local LLM inference)
+* **UV** — [astral-sh/uv](https://github.com/astral-sh/uv)
+* **RapidFuzz** — fuzzy string matching
+* **Pydantic v2** — structured LLM output enforcement
+* **dependency-injector** — IoC containers
+* **HTTPX** — async HTTP client
+* **Loguru** — structured logging
+* **Rich** — terminal output
+* **BeautifulSoup4** — HTML parsing
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+If something is broken, open an issue. If you have a meaningful addition — new scraper source, improved analysis prompt, dashboard frontend — fork, branch, and open a PR.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+Focus areas where contributions are most impactful:
+- New `IScraper` implementations (Telegram, Reddit, RSS feeds)
+- Improved system prompts for specific conflict domains
+- Persistence layer (PostgreSQL + repository pattern already stubbed)
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```sh
+git checkout -b feature/your-feature
+git commit -m 'Add your feature'
+git push origin feature/your-feature
+# Open a Pull Request
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- LICENSE -->
+---
+
 ## License
 
-Distributed under the Unlicense License. See `LICENSE.txt` for more information.
+Unlicense. See `LICENSE.txt`. Do what you want with it.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
-<!-- CONTACT -->
 ## Contact
 
-Leoni Frazão - leoni.frazao.oliveira@gmail.com
+Leoni Frazão — leoni.frazao.oliveira@gmail.com
 
-Project Link: [https://github.com/leonifrazao/Parallax](https://github.com/leonifrazao/Parallax)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* [FastAPI](https://fastapi.tiangolo.com/) — High-performance async web framework
-* [Ollama](https://ollama.com/) — Run LLMs locally with full privacy
-* [RapidFuzz](https://github.com/maxbachmann/RapidFuzz) — Blazing-fast fuzzy string matching
-* [UV](https://github.com/astral-sh/uv) — Ultra-fast Python package manager
-* [Loguru](https://github.com/Delgan/loguru) — Effortless structured logging
-* [Rich](https://github.com/Textualize/rich) — Beautiful terminal formatting
-* [dependency-injector](https://github.com/ets-labs/python-dependency-injector) — IoC containers for Python
-* [Pydantic](https://docs.pydantic.dev/) — Data validation using Python type annotations
-* [HTTPX](https://www.python-httpx.org/) — Async HTTP client
-* [NewsAPI](https://newsapi.org/) — International news data provider
+[github.com/leonifrazao/Parallax](https://github.com/leonifrazao/Parallax) · [linkedin.com/in/leonifrazao](https://linkedin.com/in/leonifrazao)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+---
 
-<!-- MARKDOWN LINKS & IMAGES -->
+<!-- MARKDOWN LINKS -->
 [contributors-shield]: https://img.shields.io/github/contributors/leonifrazao/Parallax.svg?style=for-the-badge
 [contributors-url]: https://github.com/leonifrazao/Parallax/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/leonifrazao/Parallax.svg?style=for-the-badge
@@ -646,7 +525,6 @@ Project Link: [https://github.com/leonifrazao/Parallax](https://github.com/leoni
 [license-url]: https://github.com/leonifrazao/Parallax/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/leonifrazao
-[product-screenshot]: images/screenshot.png
 
 [Python.org]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://python.org
