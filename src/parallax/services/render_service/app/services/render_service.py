@@ -2,7 +2,7 @@ from pathlib import Path
 from parallax.models.enter.web import RenderRequest
 from datetime import datetime
 from parallax.interfaces.enter.usecases import IRenderUseCase
-
+import html
 
 class RenderService(IRenderUseCase):
     def __init__(self):
@@ -41,7 +41,7 @@ class RenderService(IRenderUseCase):
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
                     <div>
                         <div style="font-size:20px;font-weight:700;color:#f8fafc;line-height:1.3;">
-                            {item.headline}
+                            {html.escape(item.headline)}
                         </div>
                         <div style="margin-top:8px;font-size:13px;color:#94a3b8;">
                             Source: {item.source}
@@ -88,7 +88,7 @@ class RenderService(IRenderUseCase):
             </div>
             """)
 
-        html = f"""
+        html_text = f"""
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -106,7 +106,7 @@ class RenderService(IRenderUseCase):
         </html>
         """
 
-        file_path.write_text(html, encoding="utf-8")
+        file_path.write_text(html_text, encoding="utf-8")
 
         return {
             "status": "saved",

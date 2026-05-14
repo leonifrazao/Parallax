@@ -36,13 +36,13 @@ class ExecutorService(IExecutorUseCase):
         selected = deduped[:limit]
         logger.info("Pipeline selected headlines | limit={} selected={}", limit, len(selected))
 
+        print(f"Enviando para analysis: {selected}")
         result = await self.analyzer.execute(selected)
         if not result:
             raise ValueError("No narratives found")
 
         if tojson:
             ModelToFile.to_json(result)
-        
         await self.renderer.execute(
             title=f"Narrative Analysis - {query}",
             filename=f"{query.replace(' ', '_')}.html",

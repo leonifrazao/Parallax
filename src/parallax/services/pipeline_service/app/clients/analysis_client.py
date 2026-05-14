@@ -9,7 +9,7 @@ class AnalysisClient:
         self.base_url = base_url.rstrip("/")
 
     async def execute(self, headlines: list[Headline]) -> list[Narrative]:
-        async with httpx.AsyncClient(timeout=60.0) as client:
+        async with httpx.AsyncClient(timeout=300.0) as client:
             response = await client.post(
                 f"{self.base_url}/analyze",
                 json=[jsonable_encoder(h) for h in headlines],

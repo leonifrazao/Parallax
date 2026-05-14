@@ -1,4 +1,13 @@
 services:
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ./ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+      
   scraper-service:
     build:
       context: .
@@ -7,11 +16,11 @@ services:
     working_dir: /app
     environment:
       NEWSAPI_KEY: ${NEWSAPI_KEY}
-      OLLAMA_HOST: ${OLLAMA_HOST}
+      OLLAMA_HOST: http://ollama:11434
     ports:
       - "8001:8000"
     command: [ "uv", "run", "uvicorn", "parallax.services.scraper_service.app.main:app", "--host", "0.0.0.0", "--port", "8000" ]
-
+        
   analysis-service:
     build:
       context: .

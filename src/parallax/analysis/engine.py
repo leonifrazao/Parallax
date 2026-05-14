@@ -12,7 +12,7 @@ from loguru import logger
 class NarrativeAnalysis(INarrativeAnalysis):
 
     def __init__(self, model: str = "llama3.1"):
-        self.client = AsyncClient(host=os.getenv("OLLAMA_HOST", "http://localhost:11434"))
+        self.client = AsyncClient(host=os.getenv("OLLAMA_HOST", "http://localhost:11434"), timeout=120)
         self.model = model
         logger.info("NarrativeAnalysis initialized | model={} host={}", self.model, os.getenv("OLLAMA_HOST"))
 
@@ -32,9 +32,9 @@ class NarrativeAnalysis(INarrativeAnalysis):
         return f"""
 You are a senior intelligence analyst specialized in geopolitical narrative analysis.
 
-Analyze the following headlines:
+Analyze the following headlines delimited by <<>>:
 
-{json.dumps(payload, ensure_ascii=False)}
+<<{json.dumps(payload, ensure_ascii=False)}>>
 
 SUPER IMPORTANT: EMOTIONAL INTENSITY: 0.0 - 1.0
 """
