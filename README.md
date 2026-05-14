@@ -246,11 +246,6 @@ Dark intelligence theme (`#020617`, Inter typeface). Per-article cards: stance b
 ### Prerequisites
 
 1. **Docker & Docker Compose** — [Docker Desktop](https://www.docker.com/products/docker-desktop)
-2. **Ollama** — [ollama.com](https://ollama.com/), then:
-   ```sh
-   ollama pull llama3.1
-   ```
-   > Larger models (`llama3.1:70b`, `mixtral`) produce richer analysis at the cost of speed.
 3. **NewsAPI Key** — free at [newsapi.org](https://newsapi.org/)
 
 ### Installation
@@ -263,11 +258,12 @@ cd Parallax
 Create `.env`:
 ```env
 NEWSAPI_KEY=your_newsapi_key_here
-OLLAMA_HOST=http://host.docker.internal:11434
+OLLAMA_HOST=http://localhost:11434
 ```
 > On Linux, you may need `--add-host` or the host's IP instead of `host.docker.internal`.
 
 ```sh
+docker compose exec ollama ollama pull llama3.1
 docker compose up --build
 ```
 
